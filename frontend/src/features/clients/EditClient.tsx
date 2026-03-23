@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { apiConfig } from "../../config/apiConfig";
 
 const EditClient = () => {
   const { id } = useParams();
@@ -21,19 +22,19 @@ const EditClient = () => {
   const fetchClient = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/clients/${id}`
+        `${apiConfig.baseURL}/clients/${id}`
       );
 
-     const client = res.data.client;
+      const client = res.data.client;
 
-     setForm({
-       name: client.name || "",
-       phone: client.phone || "",
-       country: client.country || "",
-       email: client.email || "",
-       address: client.address || "",
-       companyName: client.companyName || "",
-     });
+      setForm({
+        name: client.name || "",
+        phone: client.phone || "",
+        country: client.country || "",
+        email: client.email || "",
+        address: client.address || "",
+        companyName: client.companyName || "",
+      });
     } catch (error) {
       console.error("Error fetching client", error);
     }
@@ -61,7 +62,7 @@ const EditClient = () => {
       setLoading(true);
 
       await axios.put(
-        `http://localhost:5000/api/v1/clients/${id}`,
+        `${apiConfig.baseURL}/clients/${id}`,
         form
       );
 
@@ -75,93 +76,106 @@ const EditClient = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 px-6 py-6">
+      
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold">Edit Client</h1>
-          <p className="text-gray-500 text-sm">
+          <h1 className="text-xl font-semibold text-blue-600">
+            Edit Client
+          </h1>
+          <p className="text-sm text-gray-500">
             Update client details
           </p>
         </div>
 
         <button
           onClick={() => navigate("/clients")}
-          className="text-blue-500 hover:underline"
+          className="text-gray-500 hover:text-black"
         >
           ← Back to Clients
         </button>
       </div>
 
-      {/* Card */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-lg font-semibold mb-4">Client Details</h2>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Client Details Card */}
+        <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <h2 className="text-base font-semibold mb-4">
+            Client Details
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
+            {/* Name */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Client Name *
               </label>
               <input
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Phone */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Contact Number *
               </label>
               <input
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Country */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Country *
               </label>
               <input
                 name="country"
                 value={form.country}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Email
               </label>
               <input
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Company */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Company Name
               </label>
               <input
                 name="companyName"
                 value={form.companyName}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Address */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Address
               </label>
               <textarea
@@ -169,31 +183,35 @@ const EditClient = () => {
                 value={form.address}
                 onChange={handleChange}
                 rows={3}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
-          </div>
 
-          {/* Buttons */}
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              onClick={() => navigate("/clients")}
-              className="px-4 py-2 border rounded-lg"
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-blue-500 text-white px-5 py-2 rounded-lg"
-            >
-              {loading ? "Updating..." : "Update Client"}
-            </button>
           </div>
-        </form>
-      </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-end gap-4 pt-4 border-t">
+
+          <button
+            type="button"
+            onClick={() => navigate("/clients")}
+            className="px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+          >
+            {loading ? "Updating..." : "Update Client"}
+          </button>
+
+        </div>
+
+      </form>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiConfig } from "../../config/apiConfig";
 
 const AddClient = () => {
   const navigate = useNavigate();
@@ -8,10 +9,10 @@ const AddClient = () => {
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    country: "",
     email: "",
-    address: "",
+    country: "",
     companyName: "",
+    address: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -19,20 +20,23 @@ const AddClient = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!form.name || !form.phone || !form.country) {
-      alert("Name, Contact Number and Country are required");
-      return;
-    }
-
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/api/v1/clients", form);
+
+      await axios.post(
+        `${apiConfig.baseURL}/clients`,
+        form
+      );
+
       alert("Client added successfully ✅");
       navigate("/clients");
     } catch (error: any) {
@@ -43,105 +47,119 @@ const AddClient = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 px-6 py-6">
+      
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold">Add Client</h1>
-          <p className="text-gray-500 text-sm">
-            Create a new client for vehicle export
+          <h1 className="text-xl font-semibold text-blue-600">
+            Add Client
+          </h1>
+          <p className="text-sm text-gray-500">
+            Create new client
           </p>
         </div>
 
         <button
           onClick={() => navigate("/clients")}
-          className="text-blue-500 hover:underline"
+          className="text-gray-500 hover:text-black"
         >
           ← Back to Clients
         </button>
       </div>
 
-      {/* Card */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-lg font-semibold mb-4">Client Details</h2>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        
+        {/* Client Details Card */}
+        <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <h2 className="text-base font-semibold mb-4">
+            Client Details
+          </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-            {/* Client Name */}
+            
+            {/* Name */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Client Name <span className="text-red-500">*</span>
+              <label className="block text-sm mb-1">
+                Client Name *
               </label>
               <input
+                type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Enter client name"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
 
-            {/* Contact */}
+            {/* Phone */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Contact Number <span className="text-red-500">*</span>
+              <label className="block text-sm mb-1">
+                Contact Number *
               </label>
               <input
+                type="text"
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="Enter phone number"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
 
             {/* Country */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Country <span className="text-red-500">*</span>
+              <label className="block text-sm mb-1">
+                Country *
               </label>
               <input
+                type="text"
                 name="country"
                 value={form.country}
                 onChange={handleChange}
                 placeholder="Enter country"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Email ID
+              <label className="block text-sm mb-1">
+                Email
               </label>
               <input
+                type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Enter email"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            {/* Company Name */}
+            {/* Company */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Company Name
               </label>
               <input
+                type="text"
                 name="companyName"
                 value={form.companyName}
                 onChange={handleChange}
                 placeholder="Enter company name"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             {/* Address */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm mb-1">
                 Address
               </label>
               <textarea
@@ -150,31 +168,35 @@ const AddClient = () => {
                 onChange={handleChange}
                 placeholder="Enter address"
                 rows={3}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500"
               />
             </div>
-          </div>
 
-          {/* Buttons */}
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              onClick={() => navigate("/clients")}
-              className="px-4 py-2 border rounded-lg hover:bg-gray-100"
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600"
-            >
-              {loading ? "Saving..." : "Create Client"}
-            </button>
           </div>
-        </form>
-      </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-end gap-4 pt-4 border-t">
+          
+          <button
+            type="button"
+            onClick={() => navigate("/clients")}
+            className="px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+          >
+            {loading ? "Saving..." : "Add Client"}
+          </button>
+
+        </div>
+
+      </form>
     </div>
   );
 };
