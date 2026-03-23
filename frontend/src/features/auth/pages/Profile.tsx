@@ -77,7 +77,6 @@ const Profile: React.FC = () => {
     setLoading(true);
     try {
       const result = await dispatch(updateProfile({ name: formData.name.trim(), email: formData.email.trim() })).unwrap();
-      toast.success("Profile updated successfully!");
       setIsEditing(false);
     } catch (error: any) {
       toast.error(error || "Update failed");
