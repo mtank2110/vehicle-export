@@ -8,6 +8,10 @@ import MainLayout from "../components/layout/MainLayout";
 import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
 import Profile from "../features/auth/pages/Profile";
+import Dealers from "../features/dealers/pages/Dealers";
+import AddDealer from "../features/dealers/pages/AddDealer";
+import DealerDetails from "../features/dealers/pages/DealerDetails";
+import EditDealer from "../features/dealers/pages/EditDealer";
 
 // Dashboard
 import Dashboard from "../features/dashboard/pages/Dashboard";
@@ -53,14 +57,17 @@ const AppRoutes: React.FC = () => {
           <Route path="/clients/add" element={<AddClient />} />
           <Route path="/clients/edit/:id" element={<EditClient />} />
           <Route path="/clients/:id" element={<ClientDetails />} />
+
+          <Route path="/dealers" element={<Dealers />} />
+<Route path="/dealers/add" element={<AddDealer />} />
+<Route path="/dealers/:id" element={<DealerDetails />} />
+<Route path="/dealers/edit/:id" element={<EditDealer />} />
+
           <Route path="/orders" element={<OrdersList />} />
           <Route path="/orders/add" element={<AddOrder />} />
           <Route path="/orders/edit/:id" element={<EditOrder />} />
           <Route path="/orders/:id" element={<OrderDetails />} />
-          <Route
-            path="/dealers"
-            element={<div className="p-6">Dealers Page (Coming Soon)</div>}
-          />
+          
           <Route path="/proforma-invoice/add" element={<CreatePI />} />
           <Route path="/proforma-invoice" element={<PIList />} />
           <Route path="/proforma-invoice/edit/:id" element={<EditPI />} />
