@@ -1,7 +1,7 @@
 import { Order, IOrder } from "../models/Order.model";
 import { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
 import { Client } from "../models/Client.model";
-
+import mongoose from "mongoose";
 // Helper function to generate orderId (ORD-001, ORD-002, etc.)
 const generateOrderId = async (): Promise<string> => {
   const count = await Order.countDocuments();
@@ -114,8 +114,12 @@ export const getOrdersService = async (query: any) => {
     match.status = status;
   }
 
-  if (clientId) {
+if (clientId) {
     match.clientId = clientId;
+  }
+
+  if (query.dealerId) {
+    match.dealerId = new mongoose.Types.ObjectId(query.dealerId);
   }
 
   const skip = (Number(page) - 1) * Number(limit);

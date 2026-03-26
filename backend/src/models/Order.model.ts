@@ -23,6 +23,7 @@ export interface IOrder extends Document {
   voucherNo: string;
   date: Date;
   clientId: mongoose.Types.ObjectId;
+  dealerId?: mongoose.Types.ObjectId;
   incoterm: string;
   portOfLoading: string;
   portOfDischarge: string;
@@ -73,10 +74,15 @@ const orderSchema = new Schema<IOrder>({
     type: Date,
     default: Date.now,
   },
-  clientId: {
+clientId: {
     type: Schema.Types.ObjectId,
     ref: "Client",
     required: true,
+  },
+  dealerId: {
+    type: Schema.Types.ObjectId,
+    ref: "Dealer",
+    default: null,
   },
   incoterm: {
     type: String,

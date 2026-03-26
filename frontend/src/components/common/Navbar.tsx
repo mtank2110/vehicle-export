@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Users, FileText } from 'lucide-react';
+import { Users, FileText, Store } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -12,6 +12,11 @@ const Navbar: React.FC = () => {
       path: '/clients',
     },
     {
+      name: 'Dealers',
+      icon: <Store size={18} />,
+      path: '/dealers',
+    },
+    {
       name: 'Orders',
       icon: <FileText size={18} />,
       path: '/orders',
@@ -21,7 +26,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="flex bg-transparent ml-2 rounded-r-2xl border-b border-gray-200/50 dark:border-gray-700/50">
       {navItems.map((item, index) => {
-        const isActive = location.pathname === item.path;
+        const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
         return (
           <Link
             key={item.name}

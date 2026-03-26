@@ -46,8 +46,8 @@ const Dealers = () => {
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Dealers</h2>
-          <p className="text-sm text-slate-500">Manage all your dealers</p>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">Dealers</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Manage all your dealers</p>
         </div>
         <button
           onClick={() => navigate("/dealers/add")}
@@ -59,10 +59,10 @@ const Dealers = () => {
       </div>
 
       {/* CARD */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {/* TOOLBAR */}
-        <div className="px-6 py-4 border-b bg-slate-50 flex justify-between items-center">
-          <div className="flex items-center gap-2 text-sm text-slate-500">
+        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex justify-between items-center">
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
             <Filter size={16} />
             Filter: All Dealers
           </div>
@@ -73,7 +73,7 @@ const Dealers = () => {
               placeholder="Search dealer..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-4 py-2 text-sm border rounded-md focus:ring-2 focus:ring-blue-500"
+              className="pl-9 pr-4 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400"
             />
           </div>
         </div>
@@ -81,7 +81,7 @@ const Dealers = () => {
         {/* TABLE */}
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-slate-500 text-xs uppercase">
+            <thead className="bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-xs uppercase">
               <tr>
                 <th className="px-6 py-3 text-left">Dealer ID</th>
                 <th className="px-6 py-3 text-left">Name</th>
@@ -95,42 +95,42 @@ const Dealers = () => {
             <tbody>
               {dealers.length === 0 && !loading ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-gray-500">
+                  <td colSpan={7} className="text-center py-10 text-gray-500 dark:text-slate-400">
                     No dealers found
                   </td>
                 </tr>
               ) : (
                 dealers.map((dealer) => (
-                  <tr key={dealer._id} className="border-t hover:bg-slate-50">
+                  <tr key={dealer._id} className="border-t border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700">
                     <td className="px-6 py-4">
-                      <span className="bg-slate-100 px-2 py-1 rounded text-xs">
+                      <span className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 px-2 py-1 rounded text-xs">
                         {dealer._id.slice(-4)}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-medium">{dealer.name}</div>
+                      <div className="font-medium text-slate-800 dark:text-white">{dealer.name}</div>
                     </td>
-                    <td className="px-6 py-4">{dealer.contact}</td>
-                    <td className="px-6 py-4">{dealer.email || "-"}</td>
-                    <td className="px-6 py-4">{dealer.address || "-"}</td>
-                    <td className="px-6 py-4">{dealer.gstNumber || "-"}</td>
+                    <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{dealer.contact}</td>
+                    <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{dealer.email || "-"}</td>
+                    <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{dealer.address || "-"}</td>
+                    <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{dealer.gstNumber || "-"}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => navigate(`/dealers/${dealer._id}`)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                          className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-600 rounded"
                         >
                           <Eye size={18} />
                         </button>
                         <button
                           onClick={() => navigate(`/dealers/edit/${dealer._id}`)}
-                          className="p-2 text-green-600 hover:bg-green-50 rounded"
+                          className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-slate-600 rounded"
                         >
                           <Pencil size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(dealer._id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded"
+                          className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-slate-600 rounded"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -144,22 +144,22 @@ const Dealers = () => {
         </div>
 
         {/* PAGINATION */}
-        <div className="flex justify-between items-center px-6 py-4 border-t">
-          <span className="text-sm text-gray-500">
+        <div className="flex justify-between items-center px-6 py-4 border-t border-slate-200 dark:border-slate-700">
+          <span className="text-sm text-gray-500 dark:text-slate-400">
             Page {currentPage} of {totalPages}
           </span>
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentPage((p) => p - 1)}
               disabled={currentPage === 1}
-              className="px-3 py-1 border rounded"
+              className="px-3 py-1 border border-slate-300 dark:border-slate-600 rounded text-slate-600 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-slate-700"
             >
               Prev
             </button>
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
               disabled={currentPage === totalPages}
-              className="px-3 py-1 border rounded"
+              className="px-3 py-1 border border-slate-300 dark:border-slate-600 rounded text-slate-600 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-slate-700"
             >
               Next
             </button>

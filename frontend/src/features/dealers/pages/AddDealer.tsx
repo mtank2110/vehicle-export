@@ -6,11 +6,7 @@ import { ArrowLeft } from "lucide-react";
 const AddDealer = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    name: "",
-    contact: "",
-    email: "",
-    address: "",
-    gstNumber: "",
+    name: "", contact: "", email: "", address: "", gstNumber: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -35,72 +31,64 @@ const AddDealer = () => {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate("/dealers")}
-          className="p-2 hover:bg-slate-100 rounded-lg"
+          className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={20} className="text-slate-600 dark:text-slate-300" />
         </button>
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Add Dealer</h2>
-          <p className="text-sm text-slate-500">Register a new dealer</p>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">Add Dealer</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-300">Register a new dealer</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              Dealer Name *
-            </label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Dealer Name *</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
               placeholder="Enter dealer name"
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              Contact Number *
-            </label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contact Number *</label>
             <input
               type="text"
               value={form.contact}
               onChange={(e) => setForm({ ...form, contact: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
               placeholder="Enter contact number"
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700">Email</label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
             <input
               type="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
               placeholder="Enter email"
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              GST Number
-            </label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">GST Number</label>
             <input
               type="text"
               value={form.gstNumber}
               onChange={(e) => setForm({ ...form, gstNumber: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
               placeholder="Enter GST number (optional)"
             />
           </div>
           <div className="col-span-2">
-            <label className="text-sm font-medium text-slate-700">
-              Address
-            </label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Address</label>
             <textarea
               value={form.address}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
               placeholder="Enter address"
               rows={3}
             />
@@ -117,7 +105,7 @@ const AddDealer = () => {
           </button>
           <button
             onClick={() => navigate("/dealers")}
-            className="px-6 py-2.5 border text-slate-600 text-sm rounded-lg hover:bg-slate-50"
+            className="px-6 py-2.5 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 text-sm rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700"
           >
             Cancel
           </button>
