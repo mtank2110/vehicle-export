@@ -81,15 +81,15 @@ const AddOrder = () => {
   };
 
   return (
-    <div className="space-y-6 p-8">
+    <div className="space-y-6 bg-gray-100 dark:bg-gray-900 min-h-screen p-4 rounded">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">
             Add New Order
           </h2>
-          <p className="text-sm text-slate-500">
-            Client + Vehicles (name, color, qty)
+          <p className="text-sm text-slate-500 dark:text-gray-300">
+            Client + Vehicles 
           </p>
         </div>
         <button
@@ -102,16 +102,16 @@ const AddOrder = () => {
       </div>
 
       {/* Main Card */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 overflow-hidden">
         <div className="p-8 space-y-8">
           {/* Client & Date */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Client</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Client</label>
               <select
                 value={clientId}
                 onChange={handleClientChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="">Select Client</option>
                 {clients.map((c) => (
@@ -124,7 +124,7 @@ const AddOrder = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
                 <Calendar size={16} />
                 Date
               </label>
@@ -132,15 +132,15 @@ const AddOrder = () => {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
 
           {/* Client Info */}
           {selectedClient && (
-            <div className="p-6 bg-slate-50 rounded-lg border">
-              <h3 className="font-medium text-slate-800 mb-3">{selectedClient.name}</h3>
+            <div className="p-6 bg-slate-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+              <h3 className="font-medium text-slate-800 dark:text-white mb-3">{selectedClient.name}</h3>
               <div className="text-sm text-slate-600 space-y-1">
                 <div>{selectedClient.companyName}</div>
                 <div>{selectedClient.country} • {selectedClient.phone}</div>
@@ -166,9 +166,9 @@ const AddOrder = () => {
 
             <div className="space-y-4">
               {vehicles.map((v, i) => (
-                <div key={i} className="bg-white p-6 rounded-lg border border-gray-200 hover:border-gray-300">
+                <div key={i} className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600">
                   <div className="flex justify-between items-start mb-4">
-                    <h4 className="font-medium text-slate-800">Vehicle {i + 1}</h4>
+                    <h4 className="font-medium text-slate-800 dark:text-white">Vehicle {i + 1}</h4>
                     {vehicles.length > 1 && (
                       <button
                         type="button"
@@ -182,14 +182,15 @@ const AddOrder = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs text-slate-500 mb-1">Name</label>
+                      <label className="block text-xs text-gray-700 dark:text-gray-300 mb-1">Name</label>
                       <input
                         type="text"
                         value={v.name}
                         onChange={(e) => handleVehicleChange(i, "name", e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                         placeholder="Vehicle model"
                       />
+
                       {errors[`name_${i}`] && <p className="text-red-500 text-xs mt-1">{errors[`name_${i}`]}</p>}
                     </div>
 
@@ -199,7 +200,7 @@ const AddOrder = () => {
                         type="text"
                         value={v.color}
                         onChange={(e) => handleVehicleChange(i, "color", e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                         placeholder="Red, Blue..."
                       />
                       {errors[`color_${i}`] && <p className="text-red-500 text-xs mt-1">{errors[`color_${i}`]}</p>}
@@ -212,8 +213,9 @@ const AddOrder = () => {
                         value={v.quantity}
                         min="1"
                         onChange={(e) => handleVehicleChange(i, "quantity", parseInt(e.target.value) || 1)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                       />
+
                       {errors[`qty_${i}`] && <p className="text-red-500 text-xs mt-1">{errors[`qty_${i}`]}</p>}
                     </div>
                   </div>
@@ -223,11 +225,11 @@ const AddOrder = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-4 pt-6 border-t border-slate-200">
+          <div className="flex justify-end gap-4 pt-6 border-t border-slate-200 dark:border-gray-700">
             <button
               type="button"
               onClick={() => navigate("/orders")}
-              className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              className="px-6 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Cancel
             </button>
