@@ -6,6 +6,7 @@ import {
   updateOrder,
   deleteOrder,
   updateOrderStatus,
+  downloadOrderPDF,
 } from "../controllers/order.controller";
 
 const router = Router();
@@ -15,6 +16,5 @@ router.get("/", getOrders);
 router.get("/:id", getOrderById);
 router.put("/:id", updateOrder);
 router.delete("/:id", deleteOrder);
-router.patch("/:id/status", updateOrderStatus);
-
+// router.patch("/:id/status", updateOrderStatus);
 export default router;

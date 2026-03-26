@@ -59,7 +59,7 @@ export const deleteOrder = async (req: Request, res: Response) => {
 export const updateOrderStatus = async (req: Request, res: Response) => {
   try {
     const { status } = req.body;
-    if (!status || !["Draft", "Confirmed", "PI Generated"].includes(status)) {
+    if (!status || !["Draft", "Confirmed"].includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
     
@@ -69,3 +69,5 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+

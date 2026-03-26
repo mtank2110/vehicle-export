@@ -46,7 +46,10 @@ const Sidebar: React.FC = () => {
       {/* Navigation */}
       <nav className="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
         {menuItems.map((item) => {
-          const isActive = location.pathname.includes(item.path);
+          let isActive = location.pathname.includes(item.path);
+          if (item.name === "Clients") {
+            isActive = location.pathname.startsWith('/clients') || location.pathname.startsWith('/orders');
+          }
           return (
             <Link
               key={item.name}
@@ -62,6 +65,7 @@ const Sidebar: React.FC = () => {
             </Link>
           );
         })}
+
       </nav>
     </aside>
   );
