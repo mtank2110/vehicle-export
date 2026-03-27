@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "react-toastify";
 
 const AddDealer = () => {
   const navigate = useNavigate();
@@ -12,15 +13,16 @@ const AddDealer = () => {
 
   const handleSubmit = async () => {
     if (!form.name || !form.contact) {
-      alert("Name and Contact are required!");
+      toast.error("Name and Contact are required!");
       return;
     }
     try {
       setLoading(true);
       await axios.post("http://localhost:5000/api/v1/dealers", form);
+      toast.success("Dealer added successfully!");
       navigate("/dealers");
     } catch (error) {
-      alert("Failed to add dealer");
+      toast.error("Failed to add dealer");
     } finally {
       setLoading(false);
     }

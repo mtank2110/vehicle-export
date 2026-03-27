@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Eye, Pencil, Trash2, Search, Filter, UserPlus } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Dealers = () => {
   const navigate = useNavigate();
@@ -31,13 +32,14 @@ const Dealers = () => {
     fetchDealers();
   }, [search, currentPage]);
 
-  const handleDelete = async (id: string) => {
+const handleDelete = async (id: string) => {
     if (!window.confirm("Delete this dealer?")) return;
     try {
       await axios.delete(`http://localhost:5000/api/v1/dealers/${id}`);
+      toast.success("Dealer deleted!");
       fetchDealers();
     } catch {
-      alert("Delete failed");
+      toast.error("Delete failed");
     }
   };
 
@@ -103,9 +105,9 @@ const Dealers = () => {
                 dealers.map((dealer) => (
                   <tr key={dealer._id} className="border-t border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700">
                     <td className="px-6 py-4">
-                      <span className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 px-2 py-1 rounded text-xs">
-                        {dealer._id.slice(-4)}
-                      </span>
+                     <span className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 px-2 py-1 rounded text-xs">
+  {dealer.dealerId || dealer._id.slice(-4)}
+</span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="font-medium text-slate-800 dark:text-white">{dealer.name}</div>

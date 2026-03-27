@@ -36,12 +36,20 @@ const DealersDashboard: React.FC = () => {
             </span>
             Dealers Dashboard
           </h1>
-          <button
-            onClick={() => navigate("/dealers/add")}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-lg transition-all duration-200"
-          >
-            <Plus className="w-4 h-4" /> Add Dealer
-          </button>
+        <div className="flex gap-3">
+  <button
+    onClick={() => navigate("/dealers/orders/add")}
+    className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-lg transition-all duration-200"
+  >
+    <Plus className="w-4 h-4" /> New Order
+  </button>
+  <button
+    onClick={() => navigate("/dealers/add")}
+    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-lg transition-all duration-200"
+  >
+    <Plus className="w-4 h-4" /> Add Dealer
+  </button>
+</div>
         </div>
       </section>
 

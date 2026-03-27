@@ -1,10 +1,18 @@
 import { Request, Response } from "express";
 import Dealer from "../models/Dealer.model";
 
+const generateDealerId = async (): Promise<string> => {
+  const latest = await Dealer.findOne({ dealerId: { $exists: true } }).sort({ createdAt: -1 }).select("dealerId");
+  if (!latest || !latest.get("dealerId")) return "DL-001";
+  const num = parseInt(latest.get("dealerId").split("-")[1]) + 1;
+  return `DL-${String(num).padStart(3, "0")}`;
+};
+
 // Create a dealer
 export const createDealer = async (req: Request, res: Response) => {
   try {
-    const dealer = await Dealer.create(req.body);
+    const dealerId = await generateDealerId();
+    const dealer = await Dealer.create({ ...req.body, dealerId });
     res.status(201).json({ success: true, data: dealer });
   } catch (error: any) {
     res.status(400).json({ success: false, message: error.message });
@@ -18,7 +26,7 @@ export const getDealers = async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 5;
     const query = search ? { name: { $regex: search, $options: "i" } } : {};
-    const dealers = await Dealer.find(query).limit(limit).skip((page - 1) * limit);
+    const dealers = await Dealer.find(query).sort({ createdAt: -1 }).limit(limit).skip((page - 1) * limit);
     const total = await Dealer.countDocuments(query);
     res.status(200).json({ success: true, data: dealers, totalPages: Math.ceil(total / limit) });
   } catch (error: any) {

@@ -24,6 +24,7 @@ import Dealers from "../features/dealers/pages/Dealers";
 import AddDealer from "../features/dealers/pages/AddDealer";
 import DealerDetails from "../features/dealers/pages/DealerDetails";
 import EditDealer from "../features/dealers/pages/EditDealer";
+import DealerOrders from "../features/dealers/pages/DealerOrders";
 
 // PI
 import CreatePI from "../features/proforma-invoice/pages/CreatePI";
@@ -67,7 +68,10 @@ const AppRoutes: React.FC = () => {
           <Route path="/dealers/dashboard" element={<DealersDashboard />} />
           <Route path="/dealers/add" element={<AddDealer />} />
           <Route path="/dealers/edit/:id" element={<EditDealer />} />
+          <Route path="/dealers/orders/add" element={<DealerOrders />} />
           <Route path="/dealers/:id" element={<DealerDetails />} />
+    
+          
 
           {/* Orders */}
           <Route path="/orders" element={<OrdersList />} />
