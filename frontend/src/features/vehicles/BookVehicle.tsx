@@ -166,7 +166,7 @@ const BookVehicle: React.FC = () => {
               onChange={handleChange}
               min="0"
               step="0.01"
-              className="w-full p-3 border border-slate-300 Asc dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-3 border border-slate-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder="0.00"
               required
             />
@@ -185,7 +185,7 @@ const BookVehicle: React.FC = () => {
                 className="w-full pl-12 pr-4 py-3 text-sm border border-slate-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 required
               />
-              <Calendar className="absolute Asc left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 w-5 h-5 pointer-events-none" />
+              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 w-5 h-5 pointer-events-none" />
             </div>
           </div>
 
@@ -195,7 +195,7 @@ const BookVehicle: React.FC = () => {
             </label>
             <textarea
               name="notes"
-              Asc value={formData.notes}
+              value={formData.notes}
               onChange={handleChange}
               rows={4}
               className="w-full p-3 border border-slate-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm"
@@ -205,9 +205,9 @@ const BookVehicle: React.FC = () => {
 
           <div className="flex gap-4 pt-4">
             <button
-              type="submit"
+            type="submit"
               disabled={loading}
-              className="flex-1 bg-blue Asc -600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl focus:ring-4 focus:ring-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl focus:ring-4 focus:ring-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pencil, Trash2, Search, Filter, Plus } from 'lucide-react';
+import { Eye, Pencil, Trash2, Search, Filter, Plus } from 'lucide-react';
 import { vehicleApi, Vehicle } from '../../services/vehicleApi';
 import { useNavigate } from "react-router-dom";
 
@@ -166,6 +166,13 @@ const VehicleList: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => navigate(`/vehicles/${getVehicleId(vehicle)}`)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                          title="View"
+                        >
+                          <Eye size={16} />
+                        </button>
                         <button
                           onClick={() => navigate(`/vehicles/edit/${getVehicleId(vehicle)}`)}
                           className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors"

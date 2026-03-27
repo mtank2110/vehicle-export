@@ -106,14 +106,10 @@ export const bookVehicleService = async (data: BookVehicleDto): Promise<IVehicle
     
     const newQuantity = vehicle.quantity - data.quantity;
     
-    if (newQuantity <= 0) {
-      vehicle.status = 'Booked';
-      vehicle.quantity = 0;
-    } else {
-      vehicle.quantity = newQuantity;
-    }
-    
+    vehicle.status = 'Booked';
+    vehicle.quantity = Math.max(0, newQuantity);
     vehicle.bookedBy = data.clientId;
+    vehicle.updatedAt = new Date();
     // Save date/notes if needed
     
     return await vehicle.save();

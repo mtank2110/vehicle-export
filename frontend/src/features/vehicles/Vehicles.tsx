@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Car, LayoutDashboard, List, CalendarPlus, BadgeCheck } from 'lucide-react';
 import { vehicleApi, VehicleStats } from '../../services/vehicleApi';
 import VehicleList from './VehicleList';
 import BookVehicle from './BookVehicle';
 
 const Vehicles: React.FC = () => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'list' | 'book'>('dashboard');
+
+  const urlTab = searchParams.get('tab') as 'dashboard' | 'list' | 'book' | null;
+  
+  React.useEffect(() => {
+    if (urlTab && ['dashboard', 'list', 'book'].includes(urlTab)) {
+      setActiveTab(urlTab as 'dashboard' | 'list' | 'book');
+    }
+  }, [urlTab]);
+
+  const handleTabClick = (tabId: 'dashboard' | 'list' | 'book') => {
+    setActiveTab(tabId);
+    navigate(`/vehicles?tab=${tabId}`);
+  };
   const [stats, setStats] = useState<VehicleStats | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
 
@@ -26,6 +42,18 @@ const Vehicles: React.FC = () => {
 
     fetchStats();
   }, []);
+
+  React.useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['dashboard', 'list', 'book'].includes(tabParam)) {
+      setActiveTab(tabParam as 'dashboard' | 'list' | 'book');
+    }
+  }, [searchParams]);
+
+  const handleTabChange = (newTab: 'dashboard' | 'list' | 'book') => {
+    setActiveTab(newTab);
+    setSearchParams({ tab: newTab });
+  };
 
   const tabs = [
     { id: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
@@ -88,39 +116,41 @@ const Vehicles: React.FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Navbar */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 overflow-hidden">
+      {/* Navbar Container */}
+      <div className="bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-t-xl mb-0">
         <div className="px-6 py-4 border-b border-slate-200 dark:border-gray-700">
-          <nav className="flex space-x-1 overflow-x-auto">
+          <nav className="flex space-x-8">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (
-                <button
+                <div
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap ${
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium cursor-pointer whitespace-nowrap transition-all duration-200 text-sm ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                      ? 'border-b-4 border-blue-500 text-blue-600 dark:text-blue-400'
+                      : 'border-b-2 border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-white'
                   }`}
                 >
                   <Icon size={18} />
                   <span>{tab.label}</span>
-                </button>
+                </div>
               );
             })}
           </nav>
         </div>
 
-        {/* Tab Content */}
-        <div className="p-6 md:p-8">
-          {renderTabContent()}
-        </div>
+      </div>
+
+      {/* Tab Content */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 p-6 md:p-8">
+        {renderTabContent()}
       </div>
     </div>
   );
 };
+
 
 export default Vehicles;
 
