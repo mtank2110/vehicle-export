@@ -17,7 +17,7 @@ const VehicleRoutes = () => {
         <Route path="book" element={<BookVehicle />} />
         <Route path="add" element={<AddVehicle />} />
         <Route path="edit/:id" element={<EditVehicle />} />
-        <Route path=":id" element={<VehicleDetails />} />
+        <Route path="view/:id" element={<VehicleDetails />} />
       </Route>
     </Routes>
   );

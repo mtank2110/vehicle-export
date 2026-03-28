@@ -10,7 +10,7 @@ const VehicleLayout: React.FC = () => {
   // Determine active tab based on current route
   useEffect(() => {
     const path = location.pathname;
-    if (path.includes('/vehicles/list') || path.includes('/vehicles/add') || path.includes('/vehicles/edit') || path.includes('/vehicles/:id')) {
+    if (path.includes('/vehicles/list') || path.includes('/vehicles/add') || path.includes('/vehicles/edit') || path.includes('/vehicles/view/')) {
       setActiveTab('list');
     } else if (path.includes('/vehicles/book')) {
       setActiveTab('book');
@@ -48,9 +48,9 @@ const VehicleLayout: React.FC = () => {
     }
     
     // Check for list-related pages (second priority)
-    if (path.includes('/vehicles/list') || path.includes('/vehicles/add') || path.includes('/vehicles/edit') || path.includes('/vehicles/')) {
+    if (path.includes('/vehicles/list') || path.includes('/vehicles/add') || path.includes('/vehicles/edit') || path.includes('/vehicles/view/')) {
       // Check if it's actually a vehicle details page (has vehicle ID)
-      const isVehicleDetails = path.match(/\/vehicles\/[a-f0-9]+$/i);
+      const isVehicleDetails = path.match(/\/vehicles\/view\/[a-f0-9]+$/i);
       if (isVehicleDetails) {
         return {
           title: 'Vehicle List',

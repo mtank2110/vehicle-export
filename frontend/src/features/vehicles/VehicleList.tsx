@@ -169,7 +169,7 @@ const VehicleList: React.FC = () => {
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-2">
                         <button
-                          onClick={() => navigate(`/vehicles/${getVehicleId(vehicle)}`)}
+                          onClick={() => navigate(`/vehicles/view/${getVehicleId(vehicle)}`)}
                           className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                           title="View"
                         >

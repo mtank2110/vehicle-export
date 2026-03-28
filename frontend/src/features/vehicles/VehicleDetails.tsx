@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Eye, ArrowLeft, Car } from "lucide-react";
+import { ArrowLeft, Car } from "lucide-react";
 import { vehicleApi, Vehicle } from '../../services/vehicleApi';
 import { toast } from "react-toastify";
 
@@ -10,6 +10,7 @@ const VehicleDetails = () => {
   const navigate = useNavigate();
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
+  const [clientName, setClientName] = useState<string>('');
 
   useEffect(() => {
     if (id) fetchVehicle();
@@ -21,6 +22,10 @@ const VehicleDetails = () => {
       const response = await vehicleApi.getById(id!);
       if (response.success && response.data) {
         setVehicle(response.data);
+        // Fetch client name if vehicle is booked
+        if (response.data.status === 'Booked' && response.data.bookedBy) {
+          fetchClientName(response.data.bookedBy);
+        }
       } else {
         toast.error('Failed to load vehicle details');
       }
@@ -29,6 +34,21 @@ const VehicleDetails = () => {
       toast.error('Failed to load vehicle details');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchClientName = async (clientId: string) => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1'}/clients/${clientId}`);
+      if (res.data && res.data.client) {
+        setClientName(res.data.client.name);
+      } else if (res.data && res.data.name) {
+        // Fallback in case response structure is different
+        setClientName(res.data.name);
+      }
+    } catch (error) {
+      console.error('Failed to fetch client name:', error);
+      setClientName('Client not found');
     }
   };
 
@@ -97,7 +117,12 @@ const VehicleDetails = () => {
             </div>
             <div>
               <p className="text-sm text-slate-500 dark:text-gray-400">Booked By</p>
-              <p className="font-semibold text-slate-900 dark:text-white">{vehicle.bookedBy || 'N/A'}</p>
+              <p className="font-semibold text-slate-900 dark:text-white">
+                {vehicle.status === 'Booked' 
+                  ? (clientName || vehicle.bookedBy || 'Loading...') 
+                  : 'N/A'
+                }
+              </p>
             </div>
           </div>
         </div>
@@ -137,15 +162,6 @@ const VehicleDetails = () => {
         </div>
       </div>
 
-      <div className="flex gap-3 pt-4">
-        <button
-          onClick={() => navigate(`/vehicles/edit/${vehicle._id}`)}
-          className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all shadow-sm"
-        >
-          <Eye size={16} className="inline mr-2" />
-          Edit Vehicle
-        </button>
-      </div>
     </div>
   );
 };
