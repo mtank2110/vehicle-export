@@ -76,6 +76,6 @@ export interface BookVehicleDto {
   vehicleId: string;
   amount: number;
   date: string;
-  clientId?: string;
+  clientId: string;
   notes?: string;
 }

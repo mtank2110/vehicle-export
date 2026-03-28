@@ -19,7 +19,9 @@ const vehicleSchema = new Schema<IVehicle>({
     type: String, 
     enum: ['Available', 'Booked'], 
     default: 'Available' 
-  }
+  },
+  bookedBy: { type: Schema.Types.ObjectId, ref: 'Client', default: null }
+
 }, {
   timestamps: true,
   toJSON: { 
