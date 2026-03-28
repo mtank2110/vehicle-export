@@ -21,18 +21,7 @@ export const validateCreateVehicle = (req: Request, res: Response, next: NextFun
   next();
 };
 
-export const validateUpdateVehicle = (req: Request, res: Response, next: NextFunction) => {
-  const { error, value } = updateVehicleSchema.validate(req.body, { abortEarly: false });
-  if (error) {
-    return res.status(400).json({
-      success: false,
-      error: 'Validation failed',
-      details: formatJoiError(error)
-    });
-  }
-  req.body = value;
-  next();
-};
+
 
 export const validateBookVehicle = (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = bookVehicleSchema.validate(req.body, { abortEarly: false });

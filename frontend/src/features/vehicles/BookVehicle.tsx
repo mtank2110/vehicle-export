@@ -11,10 +11,9 @@ const BookVehicle: React.FC = () => {
   const [clients, setClients] = useState<any[]>([]);
   const [loadingVehicles, setLoadingVehicles] = useState(true);
   const [loadingClients, setLoadingClients] = useState(true);
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     vehicleId: '',
     clientId: '',
-    quantity: '',
     amount: '',
     date: new Date().toISOString().split('T')[0],
     notes: '',
@@ -60,7 +59,7 @@ const BookVehicle: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.vehicleId || !formData.clientId || !formData.quantity || !formData.amount || !formData.date) {
+    if (!formData.vehicleId || !formData.clientId || !formData.amount || !formData.date) {
       toast.error('Please fill all required fields');
       return;
     }
@@ -70,7 +69,6 @@ const BookVehicle: React.FC = () => {
       const bookingData = {
         vehicleId: formData.vehicleId,
         clientId: formData.clientId,
-        quantity: Number(formData.quantity),
         amount: Number(formData.amount),
         date: formData.date,
         notes: formData.notes || '',
@@ -89,9 +87,6 @@ const BookVehicle: React.FC = () => {
             </div>
             <div className="text-sm">
               <span className="font-medium">Client:</span> {selectedClient?.name}
-            </div>
-            <div className="text-sm">
-              <span className="font-medium">Quantity:</span> {formData.quantity}
             </div>
             <div className="text-sm">
               <span className="font-medium">Amount:</span> ${Number(formData.amount).toLocaleString()}
@@ -148,7 +143,7 @@ const BookVehicle: React.FC = () => {
                     <option value="">Choose a vehicle...</option>
                     {availableVehicles.map((vehicle) => (
                       <option key={getVehicleId(vehicle)} value={getVehicleId(vehicle)}>
-                        {vehicle.name} - {vehicle.color} (Engine: {vehicle.engineNo}) - Qty: {vehicle.quantity}
+                        {vehicle.name} - {vehicle.color} (Engine: {vehicle.engineNo})
                       </option>
                     ))}
                   </select>
@@ -175,21 +170,6 @@ const BookVehicle: React.FC = () => {
                     ))}
                   </select>
                   {loadingClients && <p className="text-sm text-slate-500 mt-1">Loading clients...</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
-                    Quantity <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={formData.quantity}
-                    onChange={handleChange}
-                    min="1"
-                    className="w-full p-3 border border-slate-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-                    required
-                  />
                 </div>
 
                 <div>
