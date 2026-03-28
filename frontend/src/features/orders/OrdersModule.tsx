@@ -10,7 +10,7 @@ import OrderDetails from "./OrderDetails";
 
 const OrdersModule = () => {
   return (
-    <div className="h-full w-full bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-gray-900">
       <div className="px-6 py-5">
 
         {/* HEADER */}
@@ -29,7 +29,7 @@ const OrdersModule = () => {
         </div>
 
         {/* NAVBAR (REUSED) */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border p-2">
+        <div className="mt-2">
           <ClientsNavbar />
         </div>
 

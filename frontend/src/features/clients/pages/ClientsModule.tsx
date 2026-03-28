@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { Users } from "lucide-react";
 import ClientsNavbar from "../components/ClientsNavbar";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -11,11 +10,9 @@ import EditClient from "./EditClient";
 import ClientDetails from "./ClientDetails";
 
 const ClientsModule = () => {
-  const location = useLocation();
-  const path = location.pathname;
 
   return (
-    <div className="h-full w-full bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-gray-900">
       <div className="px-6 py-5">
 
         {/* HEADER */}
@@ -34,26 +31,26 @@ const ClientsModule = () => {
         </div>
 
         {/* ✅ NAVBAR*/}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-2">
+        <div className="mt-2">
           <ClientsNavbar />
         </div>
 
          <div className="mt-6">
         <Routes>
-<Route index element={<Navigate to="dashboard" replace />} />
-  {/* DASHBOARD */}
-  <Route path="dashboard" element={<ClientsDashboard />} />
-
-  {/* CLIENTS */}
-  <Route path="list" element={<ClientsList />} />
-<Route path="add" element={<AddClient />} />
-<Route path="edit/:id" element={<EditClient />} />
-<Route path=":id" element={<ClientDetails />} />
-
-  {/* DEFAULT */}
- <Route path="*" element={<Navigate to="/clients/dashboard" replace />} />
-
-</Routes>
+        <Route index element={<Navigate to="dashboard" replace />} />
+          {/* DASHBOARD */}
+          <Route path="dashboard" element={<ClientsDashboard />} />
+        
+          {/* CLIENTS */}
+          <Route path="list" element={<ClientsList />} />
+          <Route path="add" element={<AddClient />} />
+          <Route path="edit/:id" element={<EditClient />} />
+          <Route path=":id" element={<ClientDetails />} />
+        
+          {/* DEFAULT */}
+          <Route path="*" element={<Navigate to="/clients/dashboard" replace />} />
+        
+        </Routes>
       </div>
       </div>
     </div>

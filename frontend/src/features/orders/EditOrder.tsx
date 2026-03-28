@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Plus, Trash2, ArrowLeft } from "lucide-react";
+import { Plus, Trash2} from "lucide-react";
 import { apiConfig } from "../../config/apiConfig";
 import { toast } from "react-toastify";
 
@@ -15,15 +15,14 @@ const EditOrder = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [clients, setClients] = useState([]);
-  const [vehicles, setVehicles] = useState([]);
+  const [, setClients] = useState<any[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [clientId, setClientId] = useState("");
   const [selectedClientName, setSelectedClientName] = useState('');
   const [selectedClientCompany, setSelectedClientCompany] = useState('');
-  const [clientObj, setClientObj] = useState(null);
   const [date, setDate] = useState("");
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const EditOrder = () => {
     }
   };
 
-  const fetchOrder = async (clientList) => {
+  const fetchOrder = async (clientList: any[]) => {
     try {
       const orderRes = await axios.get(`${apiConfig.baseURL}/orders/${id}`);
       const orderData = orderRes.data.order || orderRes.data;
@@ -54,10 +53,9 @@ const EditOrder = () => {
       setPageLoading(false);
       
       const effectiveClientId = typeof orderData.clientId === 'object' ? (orderData.clientId as any)._id : orderData.clientId;
-      const clientObj = typeof orderData.clientId === 'object' ? (orderData.clientId as any) : clientList.find((c) => c._id === effectiveClientId);
+      const clientObj = typeof orderData.clientId === 'object' ? (orderData.clientId as any) : clientList.find((c: any) => c._id === effectiveClientId);
       
       setClientId(effectiveClientId || "");
-      setClientObj(clientObj || null);
       setSelectedClientName(clientObj?.name || 'N/A');
       setSelectedClientCompany(clientObj?.companyName || '-');
 
@@ -76,7 +74,11 @@ const EditOrder = () => {
     }
   };
 
-  const handleVehicleChange = (index, field, value) => {
+  const handleVehicleChange = (
+    index: number,
+    field: keyof Vehicle,
+    value: any
+  ) => {
     const updated = [...vehicles];
     updated[index] = { ...updated[index], [field]: value };
     setVehicles(updated);
@@ -86,18 +88,18 @@ const EditOrder = () => {
     setVehicles([...vehicles, { name: "", color: "", quantity: 1 }]);
   };
 
-  const removeVehicle = (index) => {
+  const removeVehicle = (index: number) => {
     if (vehicles.length === 1) return;
     setVehicles(vehicles.filter((_, i) => i !== index));
   };
 
   const validate = () => {
-    const e = {};
+    const e: Record<string, string> = {};
     if (!date) e.date = "Date required";
     vehicles.forEach((v, i) => {
       if (!v.name.trim()) e[`name_${i}`] = "Name required";
       if (!v.color.trim()) e[`color_${i}`] = "Color required";
-      if (v.quantity === "" || Number(v.quantity) < 1)
+      if (Number(v.quantity) < 1)
         e[`qty_${i}`] = "Qty ≥ 1";
     });
     setErrors(e);
@@ -116,7 +118,7 @@ const EditOrder = () => {
       navigate("/orders/list", {
         state: { success: "Order updated successfully ✅" },
       });
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed");
     } finally {
       setLoading(false);

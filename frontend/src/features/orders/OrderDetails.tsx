@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Pencil, ArrowLeft } from "lucide-react";
 import { apiConfig } from "../../config/apiConfig";
 
 const OrderDetails = () => {

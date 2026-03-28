@@ -7,11 +7,24 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+interface Order {
+  _id: string;
+  orderId: string;
+  clientName?: string;
+  clientId?: string;
+  clientCountry?: string;
+  vehicles?: any[];
+  grandTotal?: number;
+  status?: string;
+  date?: string;
+  createdAt?: string;
+}
+
 const OrdersList = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -58,7 +71,7 @@ const OrdersList = () => {
     }
   }, [location.state]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!window.confirm("Delete this order?")) return;
     
     try {
@@ -72,7 +85,7 @@ const OrdersList = () => {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "Draft": return "bg-gray-100 text-gray-800";
       case "Confirmed": return "bg-blue-100 text-blue-800";
@@ -80,6 +93,8 @@ const OrdersList = () => {
       default: return "bg-gray-100 text-gray-800";
     }
   };
+
+  
 
   return (
     <div className="space-y-4 bg-gray-100 dark:bg-gray-900 min-h-screen p-2 rounded-xl">
@@ -182,16 +197,17 @@ const OrdersList = () => {
                     </td>
 
                     <td className="px-6 py-4">
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(order.status)}`}>
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(order.status || "")}`}>
                         {order.status}
                       </span>
                     </td>
 
                     <td className="px-6 py-4">
-                      {order.date 
+                      {order.date
                         ? new Date(order.date).toLocaleDateString()
-                        : new Date(order.createdAt).toLocaleDateString()
-                      }
+                        : order.createdAt
+                        ? new Date(order.createdAt).toLocaleDateString()
+                        : "-"}
                     </td>
 
                     <td className="px-6 py-4 text-right">
